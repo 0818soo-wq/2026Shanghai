@@ -154,12 +154,13 @@
   .daily-route-head{ display:flex; align-items:baseline; gap:8px; margin-bottom: 12px; }
   .daily-route-head .d-day{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; color: var(--ink); }
   .daily-route-head .d-date{ font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
-  .drd-map{ width:100%; height:220px; display:block; margin-bottom: 16px; border-radius: 12px; border: 0; background: var(--bg); }
+  .drd-hint{ font-size: 11px; color: var(--ink-faint); margin: 0 0 12px; }
   .drd{ position: relative; padding-left: 22px; }
   .drd::before{ content:""; position:absolute; left:5px; top:7px; bottom:7px; width:2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
   .drd-stop{ position: relative; margin-bottom: 2px; }
   .drd-stop .dot{ position:absolute; left:-22px; top:2px; width:11px; height:11px; border-radius:50%; background: var(--surface); border: 2.5px solid var(--maple); z-index:1; }
-  .drd-stop .label{ font-size: 13px; font-weight: 700; color: var(--ink); padding-top: 0; }
+  .drd-stop .label{ font-size: 13px; font-weight: 700; color: var(--forest); padding-top: 0; text-decoration: none; }
+  .drd-stop .label:active{ opacity: 0.6; }
   .drd-connector{ position: relative; margin: 3px 0 14px; padding-left: 2px; display:flex; align-items:center; gap:6px; font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
   .drd-connector svg{ width: 12px; height: 12px; opacity: 0.75; flex-shrink:0; }
 
@@ -365,7 +366,7 @@
           </div>
           <ul class="schedule">
             <li>호텔 조식 후 택시로 이동 · 동방명주(東方明珠) 또는 신천지 (동방명주 입장권 비용 미정)</li>
-            <li>점심 · 동방명주면 점도덕, 신천지면 대호춘</li>
+            <li>점심 · 동방명주면 점도덕(슈퍼브랜드몰점), 신천지면 대호춘(예원 근처점)</li>
             <li>발마사지</li>
             <li class="warn">⚠ 15:30 호텔 픽업 확정 — 마사지 마치고 늦지 않게 호텔로 복귀 필요</li>
             <li>공항 프라이빗셔틀로 이동 (기사 대기시간 30분)</li>
@@ -664,24 +665,24 @@
   const mealData = {
     day1: {
       b: "기내식",
-      l: { name: "마라반(레드립) · 딤섬(소양생전)", place: "Red Lips Shanghai", desc: "₩30,000 예정" },
-      d: { name: "양꼬치(현지우이치엔)", place: "Xianzheng Yizhen, Shanghai", desc: "₩80,000 예정" }
+      l: { name: "마라반(레드립) · 딤섬(소양생전)", place: "Red Lips Shanghai", desc: "₩30,000 예정 · 정확한 매장명 확인 필요" },
+      d: { name: "양꼬치(현지우이치엔 818광장점)", place: "818广场, 南京西路, 上海", desc: "₩80,000 예정 · 정확한 매장명 확인 필요, 818광장 인근" }
     },
     day2: {
-      b: { name: "전병(산둥잡곡전병)", place: "Shandong Jiangu Jianbing, Shanghai", desc: "₩20,000 예정" },
+      b: { name: "전병(산둥잡곡전병)", place: "山东杂粮煎饼(德仁里店), 广西北路430号, 黄浦区, 上海", desc: "₩20,000 예정 · 인민광장역 19번 출구 도보 약 430m" },
       l: "동물원 내 식사 · ₩30,000 예정",
-      d: { name: "마파두부·홍소육 (그랜마 레스토랑)", place: "Shanghai Grandmother Restaurant, Nanjing Road East, Shanghai", desc: "₩50,000 예정 · 上海姥姥家常饭馆 · 4.0★(853)" }
+      d: { name: "마파두부·홍소육 (그랜마 레스토랑)", place: "上海姥姥家常饭馆, 南京东路, 上海", desc: "₩50,000 예정 · 4.0★(853)" }
     },
     day3: {
       b: "디즈니 가서 간식 · ₩30,000 예정",
       l: "디즈니 내 식사 (식사값 티켓포함)",
-      d: { name: "마라룽샤(홍쿠이지아)", place: "Hongkui Crayfish, Shanghai", desc: "₩70,000 예정" }
+      d: { name: "마라룽샤(홍쿠이지아 인민광장점)", place: "人民广场, 上海", desc: "₩70,000 예정 · 정확한 매장명 확인 필요, 인민광장 인근" }
     },
     day4: {
       b: "호텔 조식 (포함)",
       l: [
-        { name: "대호춘", place: "Dahuchun, Shanghai", desc: "신천지 코스 · ₩30,000 예정" },
-        { name: "점도덕", place: "Dian Du De, Lujiazui, Shanghai", desc: "동방명주 코스 · ₩30,000 예정" }
+        { name: "대호춘(예원 근처점)", place: "大壶春, 豫园, 上海", desc: "신천지 코스 · ₩30,000 예정" },
+        { name: "점도덕(슈퍼브랜드몰점)", place: "点都德, 正大广场(Super Brand Mall), 陆家嘴, 上海", desc: "동방명주 코스 · ₩30,000 예정" }
       ],
       d: "기내식"
     }
@@ -690,9 +691,9 @@
   function mealPickHTML(item){
     const q = encodeURIComponent(item.place);
     const desc = item.desc ? `<span class="meal-desc">${item.desc}</span>` : '';
-    return `<div class="meal-pick"><a class="meal-link" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">
+    return `<div class="meal-pick"><a class="meal-link" href="https://uri.amap.com/search?keyword=${q}" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        ${item.name}
+        ${item.name} · 고덕지도
       </a>${desc}</div>`;
   }
   function renderMealSlot(el, entry){
@@ -745,24 +746,15 @@
     transit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-9 9h4v7h10v-7h4z"/></svg>',
     plane: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>'
   };
-  function mapFrame(locs, zoom){
-    const q = locs.map(encodeURIComponent).join('%7C');
-    const z = zoom ? ('&z=' + zoom) : '';
-    return '<iframe class="drd-map" src="https://maps.google.com/maps?q=' + q + z + '&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
-  }
   const dayRouteData = [
     { day:'Day 01', date:'11.7(토)', stops:['상하이 푸동공항(PVG)','하얏트 온더번드 (난징둥루)','상하이자연사박물관 (후보)','1000 Trees'],
-      connectors:[{icon:'transit',text:'공항 프라이빗셔틀'},{icon:'transit',text:'택시'},{icon:'transit',text:'택시'}],
-      map: mapFrame(['Shanghai Pudong International Airport','Hyatt on the Bund, Shanghai','Shanghai Natural History Museum','1000 Trees, Shanghai']) },
+      connectors:[{icon:'transit',text:'공항 프라이빗셔틀'},{icon:'transit',text:'택시'},{icon:'transit',text:'택시'}] },
     { day:'Day 02', date:'11.8(일)', stops:['하얏트 온더번드','상하이동물원','하얏트 온더번드 (복귀)','와이탄(번드)'],
-      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'도보'}],
-      map: mapFrame(['Hyatt on the Bund, Shanghai','Shanghai Zoo','Hyatt on the Bund, Shanghai','The Bund, Shanghai']) },
+      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'도보'}] },
     { day:'Day 03', date:'11.9(월)', stops:['하얏트 온더번드','상하이 디즈니랜드','하얏트 온더번드 (복귀)'],
-      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'디즈니 프라이빗셔틀'}],
-      map: mapFrame(['Hyatt on the Bund, Shanghai','Shanghai Disneyland','Hyatt on the Bund, Shanghai']) },
+      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'디즈니 프라이빗셔틀'}] },
     { day:'Day 04', date:'11.10(화)', stops:['하얏트 온더번드','동방명주 · 신천지','발마사지샵','하얏트 온더번드 (15:30 픽업)','상하이 훙차오공항(SHA)'],
-      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'공항 프라이빗셔틀'}],
-      map: mapFrame(['Hyatt on the Bund, Shanghai','Oriental Pearl Tower, Shanghai','Xintiandi, Shanghai','Hyatt on the Bund, Shanghai','Shanghai Hongqiao International Airport']) }
+      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'공항 프라이빗셔틀'}] }
   ];
   function renderDailyRoutes(){
     const container = document.getElementById('dailyRouteList');
@@ -770,13 +762,14 @@
     dayRouteData.forEach(d => {
       let drd = '<div class="drd">';
       d.stops.forEach((stop, i) => {
-        drd += `<div class="drd-stop"><span class="dot"></span><span class="label">${stop}</span></div>`;
+        const q = encodeURIComponent(stop);
+        drd += `<div class="drd-stop"><span class="dot"></span><a class="label" href="https://uri.amap.com/search?keyword=${q}" target="_blank" rel="noopener">${stop}</a></div>`;
         if (d.connectors[i]){
           drd += `<div class="drd-connector">${routeIcons[d.connectors[i].icon]}<span>${d.connectors[i].text}</span></div>`;
         }
       });
       drd += '</div>';
-      html += `<div class="daily-route-card"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div>${d.map}${drd}</div>`;
+      html += `<div class="daily-route-card"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div><p class="drd-hint">지점을 누르면 고덕지도로 검색됩니다</p>${drd}</div>`;
     });
     container.innerHTML = html;
   }
