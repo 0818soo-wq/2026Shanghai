@@ -154,7 +154,6 @@
   .daily-route-head{ display:flex; align-items:baseline; gap:8px; margin-bottom: 12px; }
   .daily-route-head .d-day{ font-family:'Fraunces', serif; font-weight:600; font-size:15.5px; color: var(--ink); }
   .daily-route-head .d-date{ font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
-  .drd-hint{ font-size: 11px; color: var(--ink-faint); margin: 0 0 12px; }
   .drd{ position: relative; padding-left: 22px; }
   .drd::before{ content:""; position:absolute; left:5px; top:7px; bottom:7px; width:2px; background: repeating-linear-gradient(to bottom, var(--line) 0px, var(--line) 4px, transparent 4px, transparent 9px); }
   .drd-stop{ position: relative; margin-bottom: 2px; }
@@ -691,7 +690,7 @@
   function mealPickHTML(item){
     const q = encodeURIComponent(item.place);
     const desc = item.desc ? `<span class="meal-desc">${item.desc}</span>` : '';
-    return `<div class="meal-pick"><a class="meal-link" href="https://www.amap.com/search?query=${q}" target="_blank" rel="noopener">
+    return `<div class="meal-pick"><a class="meal-link" href="https://uri.amap.com/search?keyword=${q}&city=上海" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
         ${item.name}
       </a>${desc}</div>`;
@@ -763,13 +762,13 @@
       let drd = '<div class="drd">';
       d.stops.forEach((stop, i) => {
         const q = encodeURIComponent(stop);
-        drd += `<div class="drd-stop"><span class="dot"></span><a class="label" href="https://www.amap.com/search?query=${q}" target="_blank" rel="noopener">${stop}</a></div>`;
+        drd += `<div class="drd-stop"><span class="dot"></span><a class="label" href="https://uri.amap.com/search?keyword=${q}&city=上海" target="_blank" rel="noopener">${stop}</a></div>`;
         if (d.connectors[i]){
           drd += `<div class="drd-connector">${routeIcons[d.connectors[i].icon]}<span>${d.connectors[i].text}</span></div>`;
         }
       });
       drd += '</div>';
-      html += `<div class="daily-route-card"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div><p class="drd-hint">지점을 누르면 고덕지도로 검색됩니다</p>${drd}</div>`;
+      html += `<div class="daily-route-card"><div class="daily-route-head"><span class="d-day">${d.day}</span><span class="d-date">${d.date}</span></div>${drd}</div>`;
     });
     container.innerHTML = html;
   }
