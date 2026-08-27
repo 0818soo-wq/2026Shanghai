@@ -386,19 +386,43 @@
   <!-- ============ 동선 TAB ============ -->
   <section class="tab-panel" id="tab-route">
     <div class="map-card">
-      <p class="map-title">항공 이동 경로</p>
+      <p class="map-title">상하이 시내 동선</p>
       <svg viewBox="0 0 380 200" width="100%" style="display:block; height:auto;">
-        <line x1="300" y1="60" x2="90" y2="150" stroke="#AD4C3C" stroke-width="2" stroke-dasharray="5,5"/>
-        <line x1="90" y1="150" x2="335" y2="85" stroke="#B3893F" stroke-width="2" stroke-dasharray="5,5"/>
-        <circle cx="300" cy="60" r="6" fill="#4C6B78"/>
-        <circle cx="90" cy="150" r="6" fill="#AD4C3C"/>
-        <circle cx="335" cy="85" r="6" fill="#B3893F"/>
-        <text x="255" y="45" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A26">인천(ICN)</text>
-        <text x="55" y="172" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A26">상하이</text>
-        <text x="288" y="107" font-family="Manrope" font-size="12" font-weight="700" fill="#1E2A26">김포(GMP)</text>
+        <!-- 한국(인천·김포)은 대략적인 방향만 표시 (상하이 기준 북동쪽) -->
+        <line x1="352" y1="16" x2="336" y2="118" stroke="#9AA79F" stroke-width="1.5" stroke-dasharray="3,4"/>
+        <line x1="27" y1="88" x2="352" y2="28" stroke="#9AA79F" stroke-width="1.5" stroke-dasharray="3,4" opacity="0.6"/>
+        <text x="286" y="12" font-family="Manrope" font-size="10" font-weight="700" fill="#64756E">인천 ICN ↘</text>
+        <text x="286" y="34" font-family="Manrope" font-size="10" font-weight="700" fill="#64756E">↗ 김포 GMP</text>
+
+        <!-- 공항↔호텔 (항공/셔틀 구간) -->
+        <line x1="336" y1="128" x2="140" y2="62" stroke="#AD4C3C" stroke-width="2" stroke-dasharray="5,5"/>
+        <line x1="140" y1="62" x2="27" y2="90" stroke="#AD4C3C" stroke-width="2" stroke-dasharray="5,5"/>
+
+        <!-- 호텔↔일자별 목적지 (시내 이동) -->
+        <line x1="140" y1="62" x2="95" y2="30" stroke="#B3893F" stroke-width="2" stroke-dasharray="4,4"/>
+        <line x1="140" y1="62" x2="42" y2="105" stroke="#B3893F" stroke-width="2" stroke-dasharray="4,4"/>
+        <line x1="140" y1="62" x2="270" y2="168" stroke="#B3893F" stroke-width="2" stroke-dasharray="4,4"/>
+        <line x1="140" y1="62" x2="158" y2="96" stroke="#B3893F" stroke-width="2" stroke-dasharray="4,4"/>
+
+        <circle cx="336" cy="128" r="5" fill="#4C6B78"/>
+        <circle cx="27" cy="90" r="5" fill="#4C6B78"/>
+        <circle cx="95" cy="30" r="5" fill="#B3893F"/>
+        <circle cx="42" cy="105" r="5" fill="#B3893F"/>
+        <circle cx="270" cy="168" r="5" fill="#B3893F"/>
+        <circle cx="158" cy="96" r="5" fill="#B3893F"/>
+        <circle cx="140" cy="62" r="7" fill="#AD4C3C"/>
+
+        <text x="150" y="58" font-family="Manrope" font-size="11.5" font-weight="800" fill="#1E2A26">하얏트 온더번드</text>
+        <text x="330" y="122" text-anchor="end" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">푸동공항(PVG)</text>
+        <text x="34" y="84" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">훙차오공항(SHA)</text>
+        <text x="6" y="22" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">1000trees·박물관</text>
+        <text x="4" y="119" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">동물원</text>
+        <text x="225" y="180" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">디즈니랜드</text>
+        <text x="163" y="93" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">신톈디·동방명주</text>
       </svg>
       <div class="map-legend">
-        <span><span class="legend-line dashed"></span> 항공</span>
+        <span><span class="legend-line dashed" style="border-top-color:var(--maple);"></span> 공항↔호텔</span>
+        <span><span class="legend-line dashed" style="border-top-color:var(--gold);"></span> 호텔↔시내 관광지</span>
       </div>
     </div>
 
