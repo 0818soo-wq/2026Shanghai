@@ -94,6 +94,11 @@
   .transport-badge{ display: flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; background: var(--maple-soft); color: var(--maple); }
   .transport-badge svg{ width: 12px; height: 12px; }
 
+  .weather{ display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--maple-soft); }
+  .weather .temp{ font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .weather .divider{ width: 1px; align-self: stretch; background: rgba(30,42,38,0.14); }
+  .weather .outfit{ color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
+
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
   .stay .stay-name{ color: var(--ink); font-weight: 700; }
@@ -249,6 +254,7 @@
     <div id="todayCard"></div>
 
     <div class="segment-label"><span class="dot"></span>상하이<span class="rule"></span></div>
+    <p style="font-size:11px; color:var(--ink-faint); margin:-6px 6px 14px; line-height:1.5;">날씨는 11월 상하이 평년 기후 기준 추정치입니다 (실시간 예보 아님) — 출발 임박해서 실제 예보로 다시 확인하세요.</p>
     <div class="timeline">
 
       <div class="day" data-date="2026-11-07">
@@ -263,6 +269,11 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
               항공 KE887
             </span>
+          </div>
+          <div class="weather">
+            <span class="temp">19° / 13°</span>
+            <span class="divider"></span>
+            <span class="outfit">얇은 긴팔 + 가디건, 아침저녁 쌀쌀해 겉옷 필수 (11월 평년 기준)</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -298,6 +309,11 @@
               택시 · 도보
             </span>
           </div>
+          <div class="weather">
+            <span class="temp">19° / 13°</span>
+            <span class="divider"></span>
+            <span class="outfit">얇은 긴팔 + 가디건, 야외 동물원 종일이라 걷기 편한 신발 권장</span>
+          </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
             <span class="stay-name">하얏트 온더번드</span>
@@ -329,6 +345,11 @@
               택시 · 프라이빗셔틀
             </span>
           </div>
+          <div class="weather">
+            <span class="temp">19° / 13°</span>
+            <span class="divider"></span>
+            <span class="outfit">얇은 긴팔 + 방수 겉옷, 강수확률 높은 날 · 우산/우비 챙기기</span>
+          </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
             <span class="stay-name">하얏트 온더번드</span>
@@ -358,6 +379,11 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
               항공 KE2058
             </span>
+          </div>
+          <div class="weather">
+            <span class="temp">19° / 13°</span>
+            <span class="divider"></span>
+            <span class="outfit">얇은 긴팔 + 가디건, 아침저녁 쌀쌀해 겉옷 필수 (11월 평년 기준)</span>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
