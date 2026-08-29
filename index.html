@@ -207,6 +207,8 @@
   .booking-card{ background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; margin-top: 12px; }
   .booking-card-head{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
   .booking-title{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.35; }
+  a.booking-title{ display: block; text-decoration: none; color: var(--forest); }
+  a.booking-title:active{ opacity: 0.6; }
   .booking-sub{ font-size: 12px; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
   .booking-code{ flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; background: var(--gold-soft); color: var(--gold); padding: 4px 8px; border-radius: 7px; white-space: nowrap; }
   .booking-rows{ margin-top: 10px; }
@@ -583,7 +585,7 @@
       <div class="booking-card">
         <div class="booking-card-head">
           <div>
-            <div class="booking-title">하얏트 온더번드 (Hyatt on the Bund)</div>
+            <a class="booking-title" href="https://uri.amap.com/search?keyword=Hyatt%20on%20the%20Bund,%20199%20Huang%20Pu%20Road&city=上海" target="_blank" rel="noopener">하얏트 온더번드 (Hyatt on the Bund)</a>
             <div class="booking-sub">트윈 베드 2개 · 번드 뷰 · 3박 1객실 · 2 성인 1 어린이 · Samsung 예약</div>
           </div>
           <div class="booking-code">41689140</div>
@@ -612,6 +614,7 @@
           <div class="booking-row"><span class="k">기준 항공편</span><span class="v">KE887 · ICN-PVG</span></div>
           <div class="booking-row"><span class="k">착륙시간</span><span class="v">11.7(토) 12:35 (현지시간)</span></div>
           <div class="booking-row"><span class="k">기사 대기</span><span class="v">착륙시간부터 120분</span></div>
+          <div class="booking-row"><span class="k">위치</span><span class="v"><a href="https://uri.amap.com/search?keyword=Shanghai%20Pudong%20International%20Airport&city=上海" target="_blank" rel="noopener" style="color:var(--forest);">푸동공항 지도</a></span></div>
         </div>
       </div>
 
@@ -627,6 +630,7 @@
           <div class="booking-row"><span class="k">기준 항공편</span><span class="v">KE2058</span></div>
           <div class="booking-row"><span class="k">픽업시간</span><span class="v">11.10(화) 15:30 (현지시간)</span></div>
           <div class="booking-row"><span class="k">기사 대기</span><span class="v">픽업시간부터 30분</span></div>
+          <div class="booking-row"><span class="k">위치</span><span class="v"><a href="https://uri.amap.com/search?keyword=Shanghai%20Hongqiao%20International%20Airport&city=上海" target="_blank" rel="noopener" style="color:var(--forest);">훙차오공항 지도</a></span></div>
         </div>
       </div>
     </div>
