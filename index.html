@@ -229,7 +229,7 @@
   <div class="hero-meta">
     <span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      상하이 (푸동 IN · 훙차오 OUT)
+      상하이 (푸동 IN · 푸동 OUT)
     </span>
     <span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3v4M7 3v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
@@ -380,7 +380,7 @@
             </div>
             <span class="transport-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
-              항공 KE2058
+              항공 KE888
             </span>
           </div>
           <div class="weather">
@@ -393,15 +393,18 @@
             <a class="stay-name" href="https://uri.amap.com/search?keyword=Hyatt%20on%20the%20Bund,%20199%20Huang%20Pu%20Road&city=上海" target="_blank" rel="noopener">하얏트 온더번드</a> 체크아웃
           </div>
           <ul class="schedule">
-            <li>호텔 조식 후 택시로 이동 · 동방명주(東方明珠) 또는 신천지 (동방명주 입장권 비용 미정)</li>
-            <li>점심 · 동방명주면 점도덕(슈퍼브랜드몰점), 신천지면 대호춘(신천지 근처점)</li>
-            <li>발마사지</li>
-            <li class="warn">⚠ 15:30 호텔 픽업 확정 — 마사지 마치고 늦지 않게 호텔로 복귀 필요</li>
-            <li>공항 프라이빗셔틀로 이동 (기사 대기시간 30분)</li>
-            <li class="flight">18:25 SHA(훙차오) 출발 <span class="tag">KE2058</span></li>
-            <li class="flight">21:35 GMP(김포) 도착 (2h10m)</li>
+            <li class="warn">⚠ 항공편 변경(구 KE2058→KE888) — 출발공항이 훙차오(SHA)에서 <b>푸동(PVG)</b>으로, 시간도 저녁(18:25)에서 <b>낮 14:00</b>으로 바뀌어 오전 일정이 크게 줄었습니다</li>
+            <li class="warn">⚠ 기존 훙차오행 15:30 픽업 예약(NYW592983)은 이제 안 맞음 — 푸동공항·11:00경 픽업으로 재예약 필요</li>
+            <li>호텔 조식 후 짐 정리 · 체크아웃</li>
+            <li>(시간 되면) 택시로 이동 · 동방명주(東方明珠) 또는 신천지 잠깐 둘러보기 (동방명주 입장권 비용 미정)</li>
+            <li>점심 · 동방명주면 점도덕(슈퍼브랜드몰점), 신천지면 대호춘(신천지 근처점) — 짧게</li>
+            <li>(후보, 시간 부족하면 생략) 발마사지</li>
+            <li class="note">11:00경 호텔 출발 권장 (푸동공항까지 이동시간 고려)</li>
+            <li class="note">12:00까지 상하이 푸동공항 도착 권장</li>
+            <li class="flight">14:00 PVG(푸동) 출발 <span class="tag">KE888</span></li>
+            <li class="flight">17:10 ICN(인천) 도착 (2h10m)</li>
           </ul>
-          <button class="meal-btn" onclick="openMeal('day4','11.10 (화) · 상하이 → 김포')">
+          <button class="meal-btn" onclick="openMeal('day4','11.10 (화) · 상하이 → 인천')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v6a2 2 0 0 0 4 0V3M9 9v12M17 3c-1.5 3-1.5 6 0 8v10"/></svg>
             오늘 뭐 먹지?
           </button>
@@ -417,15 +420,12 @@
     <div class="map-card">
       <p class="map-title">상하이 시내 동선</p>
       <svg viewBox="0 0 380 200" width="100%" style="display:block; height:auto;">
-        <!-- 한국(인천·김포)은 대략적인 방향만 표시 (상하이 기준 북동쪽) -->
-        <line x1="352" y1="16" x2="336" y2="118" stroke="#9AA79F" stroke-width="1.5" stroke-dasharray="3,4"/>
-        <line x1="27" y1="88" x2="352" y2="28" stroke="#9AA79F" stroke-width="1.5" stroke-dasharray="3,4" opacity="0.6"/>
-        <text x="286" y="12" font-family="Manrope" font-size="10" font-weight="700" fill="#64756E">인천 ICN ↘</text>
-        <text x="286" y="34" font-family="Manrope" font-size="10" font-weight="700" fill="#64756E">↗ 김포 GMP</text>
+        <!-- 한국(인천)은 대략적인 방향만 표시 (상하이 기준 북동쪽, 왕복 모두 인천) -->
+        <line x1="352" y1="20" x2="336" y2="118" stroke="#9AA79F" stroke-width="1.5" stroke-dasharray="3,4"/>
+        <text x="286" y="16" font-family="Manrope" font-size="10" font-weight="700" fill="#64756E">인천 ICN ↔</text>
 
-        <!-- 공항↔호텔 (항공/셔틀 구간) -->
+        <!-- 공항↔호텔 (항공/셔틀 구간, 왕복 모두 푸동) -->
         <line x1="336" y1="128" x2="140" y2="62" stroke="#AD4C3C" stroke-width="2" stroke-dasharray="5,5"/>
-        <line x1="140" y1="62" x2="27" y2="90" stroke="#AD4C3C" stroke-width="2" stroke-dasharray="5,5"/>
 
         <!-- 호텔↔일자별 목적지 (시내 이동) -->
         <line x1="140" y1="62" x2="95" y2="30" stroke="#B3893F" stroke-width="2" stroke-dasharray="4,4"/>
@@ -434,7 +434,6 @@
         <line x1="140" y1="62" x2="158" y2="96" stroke="#B3893F" stroke-width="2" stroke-dasharray="4,4"/>
 
         <circle cx="336" cy="128" r="5" fill="#4C6B78"/>
-        <circle cx="27" cy="90" r="5" fill="#4C6B78"/>
         <circle cx="95" cy="30" r="5" fill="#B3893F"/>
         <circle cx="205" cy="188" r="5" fill="#B3893F"/>
         <circle cx="270" cy="168" r="5" fill="#B3893F"/>
@@ -442,8 +441,7 @@
         <circle cx="140" cy="62" r="7" fill="#AD4C3C"/>
 
         <text x="150" y="58" font-family="Manrope" font-size="11.5" font-weight="800" fill="#1E2A26">하얏트 온더번드</text>
-        <text x="330" y="122" text-anchor="end" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">푸동공항(PVG)</text>
-        <text x="34" y="84" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">훙차오공항(SHA)</text>
+        <text x="330" y="122" text-anchor="end" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">푸동공항(PVG) 왕복</text>
         <text x="6" y="22" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">1000trees·박물관</text>
         <text x="150" y="192" text-anchor="end" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">야생동물원</text>
         <text x="230" y="163" font-family="Manrope" font-size="10.5" font-weight="700" fill="#1E2A26">디즈니랜드</text>
@@ -462,7 +460,7 @@
       </div>
       <div class="route-step">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg></div>
-        <div class="txt"><b>상하이(훙차오) → 김포</b><span>KE2058 · 11.10(화) 18:25 → 21:35</span></div>
+        <div class="txt"><b>상하이(푸동) → 인천</b><span>KE888 · 11.10(화) 14:00 → 17:10</span></div>
       </div>
     </div>
 
@@ -529,14 +527,14 @@
     </div>
 
     <div class="budget-day">
-      <div class="budget-day-head"><span class="b-day">Day 04</span><span class="b-date">11.10(화) · 상하이 → 김포</span></div>
+      <div class="budget-day-head"><span class="b-day">Day 04</span><span class="b-date">11.10(화) · 상하이 → 인천</span></div>
       <div class="cost-row"><div class="cost-label">아침 · 호텔조식</div><div class="cost-amount muted">포함</div></div>
       <div class="cost-row"><div class="cost-label">교통 · 택시</div><div class="cost-amount planned">₩20,000</div></div>
       <div class="cost-row"><div class="cost-label">동방명주 입장권</div><div class="cost-amount muted">미정(?)</div></div>
       <div class="cost-row"><div class="cost-label">점심 · 딤섬<small>동방명주 코스=점도덕 / 신천지 코스=대호춘</small></div><div class="cost-amount planned">₩30,000</div></div>
       <div class="cost-row"><div class="cost-label">발마사지</div><div class="cost-amount planned">₩120,000</div></div>
       <div class="cost-row"><div class="cost-label">교통 · 공항 프라이빗셔틀</div><div class="cost-amount paid">₩55,000</div></div>
-      <div class="cost-row"><div class="cost-label">항공 · 대한항공<small>KE2058 · Day 01 항공권에 포함</small></div><div class="cost-amount muted">포함</div></div>
+      <div class="cost-row"><div class="cost-label">항공 · 대한항공<small>KE888 · Day 01 항공권에 포함</small></div><div class="cost-amount muted">포함</div></div>
       <div class="cost-row"><div class="cost-label">저녁 · 기내식</div><div class="cost-amount muted">포함</div></div>
     </div>
 
@@ -566,15 +564,15 @@
       <div class="booking-card">
         <div class="booking-card-head">
           <div>
-            <div class="booking-title">상하이(훙차오) → 김포</div>
-            <div class="booking-sub">Korean Air KE2058 · B737-900ER · 일반석(L) 세이버 · 2h10m</div>
+            <div class="booking-title">상하이(푸동) → 인천</div>
+            <div class="booking-sub">Korean Air KE888 · B787-10 · 일반석(L) 세이버 · 2h10m</div>
           </div>
           <div class="booking-code">EI••EZ</div>
         </div>
         <div class="booking-rows">
-          <div class="booking-row"><span class="k">출발</span><span class="v">11.10(화) 18:25 · SHA 상하이/훙차오 T1</span></div>
-          <div class="booking-row"><span class="k">도착</span><span class="v">11.10(화) 21:35 · GMP 서울/김포 T1(국제선)</span></div>
-          <div class="booking-row"><span class="k">좌석</span><span class="v">HONG JEONGPYO 41D · CHO SOOYOUN 41E · HONG JIWOO 41F</span></div>
+          <div class="booking-row"><span class="k">출발</span><span class="v">11.10(화) 14:00 · PVG 상하이/푸동 T1</span></div>
+          <div class="booking-row"><span class="k">도착</span><span class="v">11.10(화) 17:10 · ICN 서울/인천 T2</span></div>
+          <div class="booking-row"><span class="k">좌석</span><span class="v">HONG JEONGPYO 46G · HONG JIWOO 46H · CHO SOOYOUN 46J</span></div>
         </div>
       </div>
     </div>
@@ -618,17 +616,17 @@
         </div>
       </div>
 
-      <div class="booking-card">
+      <div class="booking-card" style="opacity:0.55;">
         <div class="booking-card-head">
           <div>
-            <div class="booking-title">하얏트 온더번드 → 훙차오공항(SHA)</div>
-            <div class="booking-sub">Hongqi E-QM5 / BYD Qin 또는 동급 · 최대 4인 · 수하물 최대 2개 · 마중 서비스 포함</div>
+            <div class="booking-title" style="text-decoration:line-through;">하얏트 온더번드 → 훙차오공항(SHA)</div>
+            <div class="booking-sub" style="color:var(--maple); font-weight:700;">⚠ 항공편 변경(KE2058→KE888)으로 무효 — 재예약 필요</div>
           </div>
           <div class="booking-code">NYW592983</div>
         </div>
         <div class="booking-rows">
-          <div class="booking-row"><span class="k">기준 항공편</span><span class="v">KE2058</span></div>
-          <div class="booking-row"><span class="k">픽업시간</span><span class="v">11.10(화) 15:30 (현지시간)</span></div>
+          <div class="booking-row"><span class="k">구 기준 항공편</span><span class="v">KE2058 (변경됨)</span></div>
+          <div class="booking-row"><span class="k">구 픽업시간</span><span class="v">11.10(화) 15:30 (현지시간)</span></div>
           <div class="booking-row"><span class="k">기사 대기</span><span class="v">픽업시간부터 30분</span></div>
           <div class="booking-row"><span class="k">위치</span><span class="v"><a href="https://uri.amap.com/search?keyword=Shanghai%20Hongqiao%20International%20Airport&city=上海" target="_blank" rel="noopener" style="color:var(--forest);">훙차오공항 지도</a></span></div>
         </div>
@@ -832,8 +830,8 @@
       connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'도보'}] },
     { day:'Day 03', date:'11.9(월)', stops:['하얏트 온더번드','상하이 디즈니랜드','하얏트 온더번드 (복귀)'],
       connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'디즈니 프라이빗셔틀'}] },
-    { day:'Day 04', date:'11.10(화)', stops:['하얏트 온더번드','동방명주 · 신천지','발마사지샵','하얏트 온더번드 (15:30 픽업)','상하이 훙차오공항(SHA)'],
-      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'택시'},{icon:'transit',text:'공항 프라이빗셔틀'}] }
+    { day:'Day 04', date:'11.10(화)', stops:['하얏트 온더번드','동방명주 · 신천지 (시간되면)','상하이 푸동공항(PVG)'],
+      connectors:[{icon:'transit',text:'택시'},{icon:'transit',text:'택시 · 11:00경 출발 (재예약 필요)'}] }
   ];
   function renderDailyRoutes(){
     const container = document.getElementById('dailyRouteList');
