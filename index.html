@@ -94,15 +94,45 @@
   .transport-badge{ display: flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; background: var(--maple-soft); color: var(--maple); }
   .transport-badge svg{ width: 12px; height: 12px; }
 
-  .weather{ padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--maple-soft); }
+  .weather{ padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--maple-soft); cursor: pointer; }
   .weather-row{ display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .weather .weather-icon{ font-size: 18px; line-height: 1; flex-shrink: 0; }
   .weather .temp{ font-weight: 800; color: var(--ink); white-space: nowrap; }
   .weather .weather-badge{ margin-left: auto; font-size: 9.5px; font-weight: 700; color: var(--ink-faint); background: rgba(30,42,38,0.08); padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
   .weather .weather-badge.live{ color: #fff; background: var(--forest); }
   .weather .outfit{ display: block; padding-left: 26px; color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
-  .weather .hourly-link{ display: inline-flex; align-items: center; gap: 4px; margin: 6px 0 0 26px; font-size: 11px; font-weight: 700; color: var(--forest); text-decoration: none; }
-  .weather .hourly-link:active{ opacity: 0.6; }
+  .weather .more{ display: block; margin-top: 4px; padding-left: 26px; font-size: 10.5px; font-weight: 700; color: var(--ink-faint); }
+
+  /* ---------- WEATHER DETAIL MODAL ---------- */
+  .tip-modal{ position: fixed; inset: 0; z-index: 60; background: rgba(30,42,38,0.55); display: none; align-items: flex-end; justify-content: center; }
+  .tip-modal.open{ display: flex; }
+  .tip-sheet{ background: var(--surface); width: 100%; max-width: 480px; max-height: 88vh; border-radius: 18px 18px 0 0; display: flex; flex-direction: column; animation: sheetup .25s ease; }
+  @keyframes sheetup{ from{ transform: translateY(28px); opacity: .5; } to{ transform: translateY(0); opacity: 1; } }
+  .tip-head{ display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 18px 13px; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+  .tip-head h3{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 17px; margin: 0; color: var(--ink); }
+  .tip-close{ width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; border: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .tip-close svg{ width: 15px; height: 15px; color: var(--ink-soft); }
+  .tip-body{ overflow-y: auto; padding: 16px 18px 10px; -webkit-overflow-scrolling: touch; }
+  .tip-foot{ padding: 12px 18px 20px; flex-shrink: 0; border-top: 1px solid var(--line); }
+  .tip-foot button{ width: 100%; padding: 13px; border-radius: 10px; border: none; background: var(--forest); color: #F6F3EC; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13.5px; cursor: pointer; }
+  .tip-foot button:active{ opacity: 0.8; }
+  .wx-sum{ display: flex; gap: 8px; margin-bottom: 16px; }
+  .wx-sum > div{ flex: 1; background: var(--bg); border-radius: 10px; padding: 10px 12px; }
+  .wx-sum .k{ font-size: 10px; font-weight: 800; color: var(--ink-faint); letter-spacing: .04em; }
+  .wx-sum .v{ font-size: 15.5px; font-weight: 800; color: var(--ink); margin-top: 3px; }
+  .wx-outfit{ background: var(--forest-soft); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; color: var(--ink); line-height: 1.5; margin-bottom: 16px; }
+  .wx-row{ display: flex; align-items: center; gap: 9px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .wx-row:first-of-type{ border-top: none; }
+  .wx-row .t{ width: 42px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }
+  .wx-row .ic{ width: 20px; text-align: center; font-size: 15px; }
+  .wx-row .tp{ width: 38px; font-size: 13px; font-weight: 800; color: var(--ink); }
+  .wx-row .ppbar{ flex: 1; height: 5px; border-radius: 3px; background: var(--line); overflow: hidden; }
+  .wx-row .ppbar i{ display: block; height: 100%; background: var(--paid); }
+  .wx-row .ppv{ width: 36px; text-align: right; font-size: 11.5px; font-weight: 700; color: var(--paid); }
+  .wx-row.rain .ppv{ color: var(--maple); }
+  .wx-row.rain .ppbar i{ background: var(--maple); }
+  .wx-msg{ text-align: center; padding: 36px 10px; color: var(--ink-faint); font-size: 13px; line-height: 1.6; }
+  .wx-src{ font-size: 10.5px; color: var(--ink-faint); text-align: center; margin: 14px 0 2px; }
 
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
@@ -284,7 +314,6 @@
               <span class="weather-badge">평년 예상</span>
             </div>
             <span class="outfit">얇은 긴팔 + 가디건, 저녁엔 쌀쌀함</span>
-            <a class="hourly-link" href="https://www.accuweather.com/en/cn/shanghai/106577/hourly-weather-forecast/106577" target="_blank" rel="noopener">🕐 시간별 예보 보기</a>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -326,7 +355,6 @@
               <span class="weather-badge">평년 예상</span>
             </div>
             <span class="outfit">얇은 긴팔 + 가디건, 걷기 편한 신발</span>
-            <a class="hourly-link" href="https://www.accuweather.com/en/cn/shanghai/106577/hourly-weather-forecast/106577" target="_blank" rel="noopener">🕐 시간별 예보 보기</a>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -365,7 +393,6 @@
               <span class="weather-badge">평년 예상</span>
             </div>
             <span class="outfit">얇은 긴팔 + 방수 자켓, 우산 필수</span>
-            <a class="hourly-link" href="https://www.accuweather.com/en/cn/shanghai/106577/hourly-weather-forecast/106577" target="_blank" rel="noopener">🕐 시간별 예보 보기</a>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -403,7 +430,6 @@
               <span class="weather-badge">평년 예상</span>
             </div>
             <span class="outfit">얇은 긴팔 + 가디건, 저녁엔 쌀쌀함</span>
-            <a class="hourly-link" href="https://www.accuweather.com/en/cn/shanghai/106577/hourly-weather-forecast/106577" target="_blank" rel="noopener">🕐 시간별 예보 보기</a>
           </div>
           <div class="stay">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
@@ -687,6 +713,19 @@
   </div>
 </div>
 
+<div class="tip-modal" id="wxModal" onclick="if(event.target===this) closeWx()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3 id="wxTitle">날씨</h3>
+      <div class="tip-close" onclick="closeWx()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+    </div>
+    <div class="tip-body" id="wxBody"></div>
+    <div class="tip-foot"><button onclick="closeWx()">닫기</button></div>
+  </div>
+</div>
+
 <footer>
   <p>2026 SHANGHAI (2nd) · 개인 여행 일정표</p>
 </footer>
@@ -834,6 +873,70 @@
     } catch (e) { /* 실패 시 평년 기후 텍스트 유지 */ }
   }
   initLiveWeather();
+
+  // 날씨 상세: 날씨 칸을 누르면 시간별 기온·강수확률
+  function closeWx(){
+    document.getElementById('wxModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  async function openWx(day){
+    const dateStr = day.dataset.date;
+    const ddate = day.querySelector('.day-date');
+    document.getElementById('wxTitle').textContent = (ddate ? ddate.textContent : dateStr) + ' · 상하이';
+    const body = document.getElementById('wxBody');
+    body.innerHTML = '<div class="wx-msg">불러오는 중…</div>';
+    document.getElementById('wxModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=31.2304&longitude=121.4737'
+      + '&hourly=temperature_2m,precipitation_probability,precipitation,weathercode'
+      + '&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FShanghai&start_date=' + dateStr + '&end_date=' + dateStr;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw 0;
+      const j = await res.json();
+      if (!j.hourly || !j.hourly.time || !j.hourly.time.length) throw 0;
+      const outfitEl = day.querySelector('.outfit');
+      const tmax = Math.round(j.daily.temperature_2m_max[0]);
+      const tmin = Math.round(j.daily.temperature_2m_min[0]);
+      let maxPop = 0, sumMm = 0;
+      j.hourly.precipitation_probability.forEach(function(v){ if (v > maxPop) maxPop = v; });
+      j.hourly.precipitation.forEach(function(v){ sumMm += (v || 0); });
+      let html = '<div class="wx-sum">' +
+        '<div><div class="k">최고 / 최저</div><div class="v">' + tmax + '° / ' + tmin + '°</div></div>' +
+        '<div><div class="k">강수확률 최대</div><div class="v">' + maxPop + '%</div></div>' +
+        '<div><div class="k">예상 강수량</div><div class="v">' + (Math.round(sumMm * 10) / 10) + 'mm</div></div>' +
+        '</div>';
+      if (outfitEl) html += '<div class="wx-outfit">👕 ' + outfitEl.textContent + '</div>';
+      for (let i = 0; i < j.hourly.time.length; i++){
+        const hh = parseInt(j.hourly.time[i].slice(11, 13), 10);
+        if (hh < 6 || hh > 21) continue;
+        const pop = j.hourly.precipitation_probability[i] || 0;
+        html += '<div class="wx-row' + (pop >= 50 ? ' rain' : '') + '">' +
+          '<span class="t">' + String(hh).padStart(2, '0') + ':00</span>' +
+          '<span class="ic">' + weatherCodeToIcon(j.hourly.weathercode[i]) + '</span>' +
+          '<span class="tp">' + Math.round(j.hourly.temperature_2m[i]) + '°</span>' +
+          '<span class="ppbar"><i style="width:' + pop + '%"></i></span>' +
+          '<span class="ppv">' + pop + '%</span></div>';
+      }
+      html += '<div class="wx-src">06~21시 · 출처 Open-Meteo</div>';
+      body.innerHTML = html;
+    } catch (e) {
+      body.innerHTML = '<div class="wx-msg">아직 예보가 나오지 않았습니다.<br>보통 방문일 2주 전부터 조회됩니다.</div>';
+    }
+  }
+  document.addEventListener('click', function(e){
+    const w = e.target.closest('.weather');
+    if (!w || !w.querySelector('.weather-icon')) return;
+    const day = w.closest('.day[data-date]');
+    if (day) openWx(day);
+  });
+  document.querySelectorAll('#tab-itinerary .day[data-date] .weather').forEach(function(w){
+    if (!w.querySelector('.weather-icon')) return;
+    const hint = document.createElement('span');
+    hint.className = 'more';
+    hint.textContent = '시간별 ›';
+    w.appendChild(hint);
+  });
 
   // 일자별 상세 동선 (미니 경로도)
   const routeIcons = {
