@@ -94,14 +94,13 @@
   .transport-badge{ display: flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; background: var(--maple-soft); color: var(--maple); }
   .transport-badge svg{ width: 12px; height: 12px; }
 
-  .weather{ padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--maple-soft); cursor: pointer; }
-  .weather-row{ display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .weather .weather-icon{ font-size: 18px; line-height: 1; flex-shrink: 0; }
-  .weather .temp{ font-weight: 800; color: var(--ink); white-space: nowrap; }
-  .weather .weather-badge{ margin-left: auto; font-size: 9.5px; font-weight: 700; color: var(--ink-faint); background: rgba(30,42,38,0.08); padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
-  .weather .weather-badge.live{ color: #fff; background: var(--forest); }
-  .weather .outfit{ display: block; padding-left: 26px; color: var(--ink-soft); font-weight: 500; line-height: 1.4; }
-  .weather .more{ display: block; margin-top: 4px; padding-left: 26px; font-size: 10.5px; font-weight: 700; color: var(--ink-faint); }
+  .weather{ display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 0; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 12.5px; background: var(--maple-soft); cursor: pointer; }
+  .weather .weather-icon{ order: 1; font-size: 18px; line-height: 1; flex-shrink: 0; }
+  .weather .temp{ order: 2; font-weight: 800; color: var(--ink); white-space: nowrap; }
+  .weather[data-weather] .temp::after{ content: "(예상)"; font-size: 9.5px; font-weight: 600; color: var(--ink-faint); margin-left: 4px; }
+  .weather .divider{ display: none; }
+  .weather .more{ order: 3; margin-left: auto; font-size: 10.5px; font-weight: 700; color: var(--ink-faint); white-space: nowrap; }
+  .weather .outfit{ order: 4; flex: 0 0 100%; width: 100%; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(30,42,38,0.12); color: var(--ink-soft); font-weight: 500; line-height: 1.5; }
 
   /* ---------- WEATHER DETAIL MODAL ---------- */
   .tip-modal{ position: fixed; inset: 0; z-index: 60; background: rgba(30,42,38,0.55); display: none; align-items: flex-end; justify-content: center; }
@@ -309,10 +308,8 @@
             </span>
           </div>
           <div class="weather" data-weather="partly-cloudy">
-            <div class="weather-row">
-              <span class="weather-icon">⛅</span><span class="temp">19–20° / 12–13°</span>
-              <span class="weather-badge">평년 예상</span>
-            </div>
+            <span class="weather-icon">⛅</span><span class="temp">19–20° / 12–13°</span>
+            <span class="divider"></span>
             <span class="outfit">얇은 긴팔 + 가디건, 저녁엔 쌀쌀함</span>
           </div>
           <div class="stay">
@@ -350,10 +347,8 @@
             </span>
           </div>
           <div class="weather" data-weather="sunny">
-            <div class="weather-row">
-              <span class="weather-icon">☀️</span><span class="temp">18–20° / 12–13°</span>
-              <span class="weather-badge">평년 예상</span>
-            </div>
+            <span class="weather-icon">☀️</span><span class="temp">18–20° / 12–13°</span>
+            <span class="divider"></span>
             <span class="outfit">얇은 긴팔 + 가디건, 걷기 편한 신발</span>
           </div>
           <div class="stay">
@@ -388,10 +383,8 @@
             </span>
           </div>
           <div class="weather" data-weather="rainy">
-            <div class="weather-row">
-              <span class="weather-icon">🌧️</span><span class="temp">17–19° / 12–14°</span>
-              <span class="weather-badge">평년 예상</span>
-            </div>
+            <span class="weather-icon">🌧️</span><span class="temp">17–19° / 12–14°</span>
+            <span class="divider"></span>
             <span class="outfit">얇은 긴팔 + 방수 자켓, 우산 필수</span>
           </div>
           <div class="stay">
@@ -425,10 +418,8 @@
             </span>
           </div>
           <div class="weather" data-weather="partly-cloudy">
-            <div class="weather-row">
-              <span class="weather-icon">⛅</span><span class="temp">17–19° / 11–13°</span>
-              <span class="weather-badge">평년 예상</span>
-            </div>
+            <span class="weather-icon">⛅</span><span class="temp">17–19° / 11–13°</span>
+            <span class="divider"></span>
             <span class="outfit">얇은 긴팔 + 가디건, 저녁엔 쌀쌀함</span>
           </div>
           <div class="stay">
@@ -863,11 +854,10 @@
         const desc = weatherCodeToText(code);
         const weatherEl = t.day.querySelector('.weather');
         if (!weatherEl) return;
+        weatherEl.removeAttribute('data-weather');
         const iconEl = weatherEl.querySelector('.weather-icon');
         if (iconEl) iconEl.textContent = weatherCodeToIcon(code);
-        weatherEl.querySelector('.temp').textContent = hi + '° / ' + lo + '°';
-        const badgeEl = weatherEl.querySelector('.weather-badge');
-        if (badgeEl){ badgeEl.textContent = '실시간 예보'; badgeEl.classList.add('live'); }
+        weatherEl.querySelector('.temp').innerHTML = hi + '° / ' + lo + '° <span style="font-size:9.5px;font-weight:600;color:var(--forest);">(실시간)</span>';
         weatherEl.querySelector('.outfit').textContent = desc + (pop != null ? ' · 강수확률 ' + pop + '%' : '');
       });
     } catch (e) { /* 실패 시 평년 기후 텍스트 유지 */ }
