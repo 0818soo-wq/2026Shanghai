@@ -634,7 +634,7 @@
             <a class="booking-title" href="https://uri.amap.com/search?keyword=Hyatt%20on%20the%20Bund,%20199%20Huang%20Pu%20Road&city=上海" target="_blank" rel="noopener">하얏트 온더번드 (Hyatt on the Bund)</a>
             <div class="booking-sub">트윈 베드 2개 · 번드 뷰 · 3박 1객실 · 2 성인 1 어린이 · Samsung 예약</div>
           </div>
-          <div class="booking-code">41689140</div>
+          <div class="booking-code">4168••••</div>
         </div>
         <div class="booking-rows">
           <div class="booking-row"><span class="k">체크인</span><span class="v">11.7(토)</span></div>
@@ -654,7 +654,7 @@
             <div class="booking-title">푸동공항(PVG) → 하얏트 온더번드</div>
             <div class="booking-sub">Hongqi E-QM5 / BYD Qin 또는 동급 · 최대 4인 · 수하물 최대 2개</div>
           </div>
-          <div class="booking-code">AQQ147821</div>
+          <div class="booking-code">AQQ1••••</div>
         </div>
         <div class="booking-rows">
           <div class="booking-row"><span class="k">기준 항공편</span><span class="v">KE887 · ICN-PVG</span></div>
@@ -670,7 +670,7 @@
             <div class="booking-title">하얏트 온더번드 → 푸동공항(PVG)</div>
             <div class="booking-sub">Egobus · ₩49,439 결제완료</div>
           </div>
-          <div class="booking-code">MKW478412</div>
+          <div class="booking-code">MKW4••••</div>
         </div>
         <div class="booking-rows">
           <div class="booking-row"><span class="k">기준 항공편</span><span class="v">KE888</span></div>
@@ -1003,6 +1003,13 @@
     container.innerHTML = html;
   }
   renderDailyRoutes();
+
+  // 오프라인 대비: 한 번이라도 온라인으로 열어두면 통신이 끊겨도 일정이 열립니다
+  if ('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
 </script>
 
 </body>
