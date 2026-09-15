@@ -133,6 +133,29 @@
   .wx-msg{ text-align: center; padding: 36px 10px; color: var(--ink-faint); font-size: 13px; line-height: 1.6; }
   .wx-src{ font-size: 10.5px; color: var(--ink-faint); text-align: center; margin: 14px 0 2px; }
 
+  /* ---------- PACKING CHECKLIST ---------- */
+  .pack-btn{
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    width: calc(100% - 12px); margin: 4px 6px 4px; padding: 13px;
+    border-radius: 12px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--forest);
+    font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer;
+  }
+  .pack-btn svg{ width: 15px; height: 15px; }
+  .pack-btn:active{ background: var(--forest-soft); }
+  .pack-progress{ padding: 13px 18px 2px; flex-shrink: 0; }
+  .pack-progress span{ font-size: 11.5px; font-weight: 800; color: var(--ink-soft); }
+  .pack-bar{ height: 5px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+  .pack-bar i{ display: block; height: 100%; width: 0; background: var(--forest); transition: width .2s ease; }
+  .pack-sec{ margin-bottom: 20px; }
+  .pack-sec h4{ font-size: 12.5px; font-weight: 800; color: var(--ink); margin: 0 0 4px; }
+  .pack-note{ font-size: 11.5px; color: var(--maple); line-height: 1.55; margin: 4px 0 8px; font-weight: 600; }
+  .pack-item{ display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--line); cursor: pointer; }
+  .pack-sec .pack-item:first-of-type{ border-top: none; }
+  .pack-item input{ width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--forest); flex-shrink: 0; }
+  .pack-item span{ font-size: 13px; line-height: 1.5; color: var(--ink); }
+  .pack-item.done span{ color: var(--ink-faint); text-decoration: line-through; }
+
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
   .stay .stay-name{ color: var(--forest); font-weight: 700; text-decoration: none; }
@@ -302,6 +325,11 @@
   <section class="tab-panel active" id="tab-itinerary">
 
     <div id="todayCard"></div>
+
+    <button class="pack-btn" onclick="openPack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 6h16v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/></svg>
+      짐 체크리스트
+    </button>
 
     <div class="segment-label"><span class="dot"></span>상하이<span class="rule"></span></div>
     <p style="font-size:11px; color:var(--ink-faint); margin:-6px 6px 14px; line-height:1.5;">날씨는 11월 평년 기후 추정치 → 여행 5일 전부터 실시간 예보(Open-Meteo)로 자동 전환</p>
@@ -735,6 +763,23 @@
   </div>
 </div>
 
+<div class="tip-modal" id="packModal" onclick="if(event.target===this) closePack()">
+  <div class="tip-sheet">
+    <div class="tip-head">
+      <h3>짐 체크리스트</h3>
+      <div class="tip-close" onclick="closePack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+    </div>
+    <div class="pack-progress">
+      <span id="packCount">0 / 0</span>
+      <div class="pack-bar"><i id="packBar"></i></div>
+    </div>
+    <div class="tip-body" id="packBody"></div>
+    <div class="tip-foot"><button onclick="closePack()">닫기</button></div>
+  </div>
+</div>
+
 <footer>
   <p>2026 SHANGHAI (2nd) · 개인 여행 일정표</p>
 </footer>
@@ -969,6 +1014,95 @@
     hint.textContent = '시간별 ›';
     w.appendChild(hint);
   });
+
+  // 짐 체크리스트 (체크 상태는 이 기기에 저장됩니다)
+  const packData = [
+    { h:'🔴 없으면 여행이 안 되는 것', items:[
+      '여권 3명 (홍정표 · 조수연 · 홍지우) — 유효기간 6개월 이상 확인',
+      '항공권 e-티켓 확인 (KE887 · KE888)',
+      '호텔 예약 확인서 (하얏트 온더번드)',
+      '<b>디즈니랜드 티켓</b> 예약 확인 화면 캡처',
+      '공항 픽업 예약 확인 (MKW478412 · Egobus 11:00 픽업)',
+      '여행자보험 증권 · 예약 확인 메일 오프라인 저장'
+    ]},
+    { h:'👕 옷 — 11월 상하이 17~20/11~13도', items:[
+      '얇은 긴팔 · 가디건',
+      '<b>방수 자켓</b> (3일차 디즈니 강수확률 높음)',
+      '편한 운동화 (야생동물원 · 디즈니 종일)',
+      '실내복 · 속옷 · 양말 4일치'
+    ]},
+    { h:'🔌 전자기기 · 앱', note:'중국은 220V로 한국과 동일 — 전압 변환 불필요, 콘센트 모양만 확인하세요.', items:[
+      '<b>고덕지도(Amap) 앱</b> 미리 설치 — 중국 내 구글맵 사용 불가',
+      'VPN 필요 여부 확인 (카카오톡 · 인스타그램 등 접속 제한 대비)',
+      '보조배터리 — 리튬배터리라 <b>기내 반입만</b>',
+      '충전기 · 케이블 · 멀티탭'
+    ]},
+    { h:'💴 결제', note:'중국은 현금 결제를 받지 않는 곳이 많습니다.', items:[
+      '위안화(CNY) 소액 현금',
+      '해외결제 가능한 신용카드',
+      'Alipay(알리페이) 해외카드 등록 여부 확인'
+    ]},
+    { h:'👶 지우', items:[
+      '기내용 태블릿 · 장난감 · 헤드폰 (인천→상하이 2h25m)',
+      '간식 · 물티슈',
+      '여벌 옷 (기내용 1벌 따로)',
+      '상비약 · 처방약'
+    ]},
+    { h:'🧴 기타', items:[
+      '세면도구',
+      '우산 (3일차 대비)',
+      '여권 사본 (따로 보관)',
+      '지퍼백 · 에코백'
+    ]}
+  ];
+  const PACK_KEY = 'pack2026sh';
+  function packStrip(t){ return t.replace(/<[^>]+>/g, '').trim(); }
+  function packLoad(){ try{ return JSON.parse(localStorage.getItem(PACK_KEY) || '[]'); }catch(e){ return []; } }
+  function packSave(a){ try{ localStorage.setItem(PACK_KEY, JSON.stringify(a)); }catch(e){} }
+  function packCount(){
+    const boxes = document.querySelectorAll('#packBody input[type=checkbox]');
+    const done = document.querySelectorAll('#packBody input[type=checkbox]:checked').length;
+    document.getElementById('packCount').textContent = done + ' / ' + boxes.length;
+    document.getElementById('packBar').style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+  }
+  function packRender(){
+    const done = packLoad();
+    let html = '';
+    packData.forEach(sec => {
+      html += '<div class="pack-sec"><h4>' + sec.h + '</h4>';
+      if (sec.note) html += '<p class="pack-note">' + sec.note + '</p>';
+      sec.items.forEach(it => {
+        const k = packStrip(it);
+        const on = done.indexOf(k) !== -1;
+        html += '<label class="pack-item' + (on ? ' done' : '') + '">' +
+                '<input type="checkbox" data-k="' + k.replace(/"/g, '&quot;') + '"' + (on ? ' checked' : '') + '>' +
+                '<span>' + it + '</span></label>';
+      });
+      html += '</div>';
+    });
+    const body = document.getElementById('packBody');
+    body.innerHTML = html;
+    packCount();
+  }
+  document.addEventListener('change', function(e){
+    if (!e.target.matches('#packBody input[type=checkbox]')) return;
+    const k = e.target.dataset.k;
+    let done = packLoad();
+    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
+    else { done = done.filter(function(x){ return x !== k; }); }
+    packSave(done);
+    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
+    packCount();
+  });
+  function openPack(){
+    packRender();
+    document.getElementById('packModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePack(){
+    document.getElementById('packModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
   // 일자별 상세 동선 (미니 경로도)
   const routeIcons = {
