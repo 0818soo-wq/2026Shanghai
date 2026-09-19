@@ -155,14 +155,6 @@
   .pack-item input{ width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--forest); flex-shrink: 0; }
   .pack-item span{ font-size: 13px; line-height: 1.5; color: var(--ink); }
   .pack-item.done span{ color: var(--ink-faint); text-decoration: line-through; }
-  .pack-item .cn{ display: block; margin-top: 2px; font-size: 10.5px; font-weight: 600; color: var(--gold); }
-  .pack-bar i.shop{ background: var(--gold); }
-  .pack-item input.shop{ accent-color: var(--gold); }
-  .shop-store{ margin-bottom: 26px; }
-  .shop-store-h{ font-family: 'Fraunces', serif; font-weight: 700; font-size: 15px; color: var(--ink); margin: 0 0 6px; padding-bottom: 8px; border-bottom: 2px solid var(--gold-soft); }
-  .shop-cat{ margin: 14px 0 0; }
-  .shop-cat-h{ display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 800; color: var(--gold); margin: 0 0 2px; }
-  .shop-cat-h::before{ content: '－'; color: var(--ink-faint); font-weight: 600; }
 
   .stay{ display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
   .stay svg{ width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
@@ -339,10 +331,6 @@
       짐 체크리스트
     </button>
 
-    <button class="pack-btn" onclick="openShop()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      쇼핑리스트
-    </button>
 
     <div class="segment-label"><span class="dot"></span>상하이<span class="rule"></span></div>
     <p style="font-size:11px; color:var(--ink-faint); margin:-6px 6px 14px; line-height:1.5;">날씨는 11월 평년 기후 추정치 → 여행 5일 전부터 실시간 예보(Open-Meteo)로 자동 전환</p>
@@ -794,22 +782,6 @@
   </div>
 </div>
 
-<div class="tip-modal" id="shopModal" onclick="if(event.target===this) closeShop()">
-  <div class="tip-sheet">
-    <div class="tip-head">
-      <h3>쇼핑리스트</h3>
-      <div class="tip-close" onclick="closeShop()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </div>
-    </div>
-    <div class="pack-progress">
-      <span id="shopCount">0 / 0</span>
-      <div class="pack-bar"><i class="shop" id="shopBar"></i></div>
-    </div>
-    <div class="tip-body" id="shopBody"></div>
-    <div class="tip-foot"><button onclick="closeShop()">닫기</button></div>
-  </div>
-</div>
 
 <footer>
   <p>2026 SHANGHAI (2nd) · 개인 여행 일정표</p>
@@ -1126,74 +1098,6 @@
   }
   function closePack(){
     document.getElementById('packModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // 쇼핑리스트 (체크 상태는 이 기기에 저장됩니다 · 가격은 실시간 최저가 아닌 대략적 참고용)
-  const shopData = [
-    { store:'🧧 신천지 소품샵', groups:[
-      { cat:'기념품 · 소품 (매장마다 상이)', items:[
-        '엽서 · 냉장고 자석<span class="cn">明信片 / 冰箱贴 · ¥15~30</span>'
-      ]}
-    ]},
-    { store:'🎨 미니소(MINISO · 名创优品, 매장 다수)', groups:[
-      { cat:'아이섀도우 (컬러는 매장에서 선택)', items:[
-        '수정빛깔 4색 아이섀도우<span class="cn">水晶盈彩四色眼影 · ¥11~15</span>'
-      ]}
-    ]},
-    { store:'🛫 신라면세점 (출국 전 온라인 주문 · ICN 인도장 수령)', groups:[
-      { cat:'베네피트', items:[
-        '프리사이슬리, 마이 브로우 펜슬<span class="cn">Benefit Precisely, My Brow Pencil · $26 (₩37,143)</span>'
-      ]}
-    ]}
-  ];
-  const SHOP_KEY = 'shop2026sh';
-  function shopLoad(){ try{ return JSON.parse(localStorage.getItem(SHOP_KEY) || '[]'); }catch(e){ return []; } }
-  function shopSave(a){ try{ localStorage.setItem(SHOP_KEY, JSON.stringify(a)); }catch(e){} }
-  function shopCount(){
-    const boxes = document.querySelectorAll('#shopBody input[type=checkbox]');
-    const done = document.querySelectorAll('#shopBody input[type=checkbox]:checked').length;
-    document.getElementById('shopCount').textContent = done + ' / ' + boxes.length;
-    document.getElementById('shopBar').style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
-  }
-  function shopRender(){
-    const done = shopLoad();
-    let html = '';
-    shopData.forEach(store => {
-      html += '<div class="shop-store"><h3 class="shop-store-h">' + store.store + '</h3>';
-      store.groups.forEach(g => {
-        html += '<div class="shop-cat"><h4 class="shop-cat-h">' + g.cat + '</h4>';
-        g.items.forEach(it => {
-          const k = packStrip(it);
-          const on = done.indexOf(k) !== -1;
-          html += '<label class="pack-item' + (on ? ' done' : '') + '">' +
-                  '<input type="checkbox" class="shop" data-k="' + k.replace(/"/g, '&quot;') + '"' + (on ? ' checked' : '') + '>' +
-                  '<span>' + it + '</span></label>';
-        });
-        html += '</div>';
-      });
-      html += '</div>';
-    });
-    document.getElementById('shopBody').innerHTML = html;
-    shopCount();
-  }
-  document.addEventListener('change', function(e){
-    if (!e.target.matches('#shopBody input[type=checkbox]')) return;
-    const k = e.target.dataset.k;
-    let done = shopLoad();
-    if (e.target.checked){ if (done.indexOf(k) === -1) done.push(k); }
-    else { done = done.filter(function(x){ return x !== k; }); }
-    shopSave(done);
-    e.target.closest('.pack-item').classList.toggle('done', e.target.checked);
-    shopCount();
-  });
-  function openShop(){
-    shopRender();
-    document.getElementById('shopModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeShop(){
-    document.getElementById('shopModal').classList.remove('open');
     document.body.style.overflow = '';
   }
 
